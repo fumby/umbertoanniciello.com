@@ -25,13 +25,12 @@
     --ink-deep:   #061627;
     --paper:      #EDE7DC;
     --paper-soft: rgba(237,231,220,.66);
-    --paper-faint:rgba(237,231,220,.38);
+    --paper-faint:rgba(237,231,220,.5);
     --brass:      #C9A227;
     --brass-soft: rgba(201,162,39,.42);
   }
 
   *,*::before,*::after{ box-sizing:border-box; }
-
   html,body{ height:100%; }
 
   body{
@@ -40,8 +39,7 @@
     align-items:center;
     justify-content:center;
     padding:clamp(1.5rem,6vw,4rem);
-    background:
-      radial-gradient(120% 90% at 50% 30%, #12314F 0%, var(--ink) 42%, var(--ink-deep) 100%);
+    background:var(--ink-deep);
     color:var(--paper);
     font-family:"Jost", ui-sans-serif, system-ui, sans-serif;
     font-weight:300;
@@ -49,22 +47,70 @@
     text-rendering:optimizeLegibility;
   }
 
-  main{
-    width:100%;
-    max-width:44rem;
-    text-align:center;
+  /* ================= the drafting table ================= */
+  .bg{
+    position:fixed;
+    inset:0;
+    z-index:-1;
+    overflow:hidden;
+    background:radial-gradient(120% 90% at 50% 30%, #12314F 0%, var(--ink) 44%, var(--ink-deep) 100%);
   }
 
-  /* ---- the domain, so a visitor knows they arrived ---- */
+  /* survey grid, drifting one cell at a time so the loop is seamless */
+  .bg-grid{
+    position:absolute;
+    inset:-80px;
+    background-image:
+      linear-gradient(to right, rgba(237,231,220,.06) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(237,231,220,.06) 1px, transparent 1px);
+    background-size:46px 46px;
+    -webkit-mask-image:radial-gradient(78% 62% at 50% 44%, #000 0%, transparent 76%);
+            mask-image:radial-gradient(78% 62% at 50% 44%, #000 0%, transparent 76%);
+    animation:drift 26s linear infinite;
+    will-change:transform;
+  }
+  @keyframes drift{ to{ transform:translate3d(46px,46px,0); } }
+
+  /* two slow lights moving over the table */
+  .bg-glow{
+    position:absolute;
+    border-radius:50%;
+    filter:blur(70px);
+    will-change:transform;
+  }
+  .bg-glow-a{
+    width:58vmax; height:58vmax; left:-12vmax; top:-16vmax;
+    background:radial-gradient(circle, rgba(41,110,170,.5) 0%, rgba(41,110,170,0) 68%);
+    animation:floatA 46s ease-in-out infinite alternate;
+  }
+  .bg-glow-b{
+    width:50vmax; height:50vmax; right:-16vmax; bottom:-20vmax;
+    background:radial-gradient(circle, rgba(201,162,39,.14) 0%, rgba(201,162,39,0) 66%);
+    animation:floatB 61s ease-in-out infinite alternate;
+  }
+  @keyframes floatA{ to{ transform:translate3d(15vmax,9vmax,0) scale(1.16); } }
+  @keyframes floatB{ to{ transform:translate3d(-13vmax,-10vmax,0) scale(1.1); } }
+
+  /* paper tooth, so the gradients never band */
+  .bg-grain{
+    position:absolute;
+    inset:0;
+    opacity:.055;
+    mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* ================= content ================= */
+  main{ width:100%; max-width:44rem; text-align:center; }
+
   .domain{
     margin:0;
     font-size:.72rem;
     letter-spacing:.24em;
     text-transform:lowercase;
-    color:rgba(237,231,220,.5);
+    color:var(--paper-faint);
   }
 
-  /* ---- the one bold element ---- */
   .headline{
     font-family:"Bodoni Moda", Didot, "Times New Roman", serif;
     font-weight:400;
@@ -76,11 +122,29 @@
   .headline span{ display:block; }
 
   .rule{
+    position:relative;
+    overflow:hidden;
     width:clamp(60px,14vw,110px);
     height:1px;
     margin:clamp(1.8rem,5vw,2.6rem) auto;
-    background:var(--brass);
+    background:var(--brass-soft);
     transform-origin:center;
+    transform:scaleX(0);
+    animation:draw 1s cubic-bezier(.22,.68,.31,1) .55s forwards;
+  }
+  /* a light passing along the drafted line */
+  .rule::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(90deg, transparent, var(--brass), transparent);
+    transform:translateX(-100%);
+    animation:sweep 9s ease-in-out 2s infinite;
+  }
+  @keyframes draw{ to{ transform:scaleX(1); } }
+  @keyframes sweep{
+    0%{ transform:translateX(-100%); }
+    45%,100%{ transform:translateX(100%); }
   }
 
   .note{
@@ -141,24 +205,29 @@
 
   :focus-visible{ outline:1px solid var(--brass); outline-offset:5px; }
 
-  /* ---- one orchestrated arrival ---- */
+  /* one orchestrated arrival */
   .reveal{ opacity:0; transform:translateY(10px); animation:rise .95s cubic-bezier(.22,.68,.31,1) forwards; }
-  .rule{ transform:scaleX(0); animation:draw 1s cubic-bezier(.22,.68,.31,1) .55s forwards; }
   .d1{ animation-delay:.05s; }
   .d2{ animation-delay:.18s; }
   .d3{ animation-delay:.75s; }
   .d4{ animation-delay:.92s; }
   .d5{ animation-delay:1.1s; }
-
   @keyframes rise{ to{ opacity:1; transform:none; } }
-  @keyframes draw{ to{ transform:scaleX(1); } }
 
   @media (prefers-reduced-motion:reduce){
     .reveal,.rule{ animation:none; opacity:1; transform:none; }
+    .bg-grid,.bg-glow,.rule::after{ animation:none; }
   }
 </style>
 </head>
 <body>
+
+<div class="bg" aria-hidden="true">
+  <div class="bg-grid"></div>
+  <div class="bg-glow bg-glow-a"></div>
+  <div class="bg-glow bg-glow-b"></div>
+  <div class="bg-grain"></div>
+</div>
 
 <main>
   <p class="domain reveal d1">umbertoanniciello.com</p>
@@ -177,7 +246,7 @@
 
 <script>
   (function () {
-    var DEST  = "https://www.linkedin.com/in/umberto-anniciello/";
+    var DEST = "https://www.linkedin.com/in/umberto-anniciello/";
     var status = document.getElementById("status");
     var left = 8, timer;
 
