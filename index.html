@@ -230,7 +230,7 @@
 </div>
 
 <main>
-  <p class="domain reveal d1">umbertoanniciello.com</p>
+  <p class="domain reveal d1" id="domain">umbertoanniciello.com</p>
 
   <h1 class="headline reveal d2"><span>Under</span><span>construction</span></h1>
 
@@ -249,6 +249,10 @@
     var DEST = "https://www.linkedin.com/in/umberto-anniciello/";
     var status = document.getElementById("status");
     var left = 8, timer;
+
+    // the page is served from both .com and .it - name the one you actually reached
+    var host = location.hostname.replace(/^www\./, "");
+    if (host) document.getElementById("domain").textContent = host;
 
     function paint() {
       status.innerHTML =
