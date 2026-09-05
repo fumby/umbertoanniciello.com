@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Umberto Anniciello</title>
-<meta name="description" content="umbertoanniciello.com is under construction. In the meantime, Umberto Anniciello is on LinkedIn.">
+<meta name="description" content="Umberto Anniciello — ESSEC Global BBA, Paris. Italian. A website will live here one day; the estimate has been revised a number of times.">
 <link rel="canonical" href="https://umbertoanniciello.com/">
 
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://umbertoanniciello.com/">
 <meta property="og:title" content="Umberto Anniciello">
-<meta property="og:description" content="Under construction. Everything worth knowing is on LinkedIn.">
+<meta property="og:description" content="ESSEC Global BBA, Paris. A website will live here one day; the estimate has been revised a number of times.">
 <meta name="twitter:card" content="summary">
 
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230E2A47'/%3E%3Cpath d='M9 8v11a7 7 0 0 0 14 0V8' fill='none' stroke='%23EDE7DC' stroke-width='2.5'/%3E%3Cpath d='M7 26h18' stroke='%23C9A227' stroke-width='2'/%3E%3C/svg%3E">
@@ -114,7 +114,7 @@
   .headline{
     font-family:"Bodoni Moda", Didot, "Times New Roman", serif;
     font-weight:400;
-    font-size:clamp(3rem,12.4vw,8.5rem);
+    font-size:clamp(3rem,1.167rem + 9.167vw,8.5rem);
     line-height:.9;
     letter-spacing:-.02em;
     margin:clamp(1.6rem,5vw,2.6rem) 0 0;
@@ -150,7 +150,7 @@
   .note{
     margin:0 auto;
     max-width:33ch;
-    font-size:clamp(.98rem,2.4vw,1.08rem);
+    font-size:clamp(.98rem,0.947rem + 0.167vw,1.08rem);
     line-height:1.68;
     text-wrap:balance;
     color:var(--paper-soft);
@@ -198,8 +198,12 @@
 
   :focus-visible{ outline:1px solid var(--brass); outline-offset:5px; }
 
-  /* one orchestrated arrival */
-  .reveal{ opacity:0; transform:translateY(10px); animation:rise .95s cubic-bezier(.22,.68,.31,1) forwards; }
+  /* one orchestrated arrival — an enhancement, never a precondition for the text
+     being there. Everything renders visible; the reveal is layered on top only
+     where motion is welcome, so nothing is ever parked at opacity 0. */
+  @media (prefers-reduced-motion:no-preference){
+    .reveal{ opacity:0; transform:translateY(10px); animation:rise .95s cubic-bezier(.22,.68,.31,1) forwards; }
+  }
   .d1{ animation-delay:.05s; }
   .d2{ animation-delay:.18s; }
   .d3{ animation-delay:.75s; }
@@ -226,7 +230,7 @@
 <main>
   <p class="domain reveal d1" id="domain">umbertoanniciello.com</p>
 
-  <h1 class="headline reveal d2"><span>Under</span><span>construction</span></h1>
+  <h1 class="headline reveal d2"><span>Under</span> <span>construction</span></h1>
 
   <div class="rule" role="presentation"></div>
 
