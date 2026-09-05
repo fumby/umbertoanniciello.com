@@ -178,7 +178,7 @@
 
   /* secondary way in, for people who would rather not use LinkedIn */
   .contact{
-    margin:clamp(1.3rem,3.2vw,1.7rem) 0 0;
+    margin:clamp(1.5rem,3.6vw,1.9rem) 0 0;
     font-size:.82rem;
     letter-spacing:.07em;
     color:var(--paper-faint);
@@ -195,33 +195,6 @@
     color:var(--paper);
     text-decoration-color:var(--brass);
   }
-
-  .status{
-    margin:clamp(1.2rem,3vw,1.6rem) 0 0;
-    min-height:1.5em;
-    font-size:.76rem;
-    letter-spacing:.1em;
-    line-height:1.7;
-    color:var(--paper-faint);
-  }
-  .status b{ font-weight:400; color:var(--paper-soft); font-variant-numeric:tabular-nums; }
-
-  .stay{
-    margin-left:.55em;
-    padding:0;
-    border:0;
-    background:none;
-    color:var(--paper-faint);
-    font:inherit;
-    letter-spacing:inherit;
-    text-decoration:underline;
-    text-underline-offset:.3em;
-    text-decoration-thickness:1px;
-    text-decoration-color:var(--brass-soft);
-    cursor:pointer;
-    transition:color .3s ease;
-  }
-  .stay:hover,.stay:focus-visible{ color:var(--paper); }
 
   :focus-visible{ outline:1px solid var(--brass); outline-offset:5px; }
 
@@ -263,54 +236,19 @@
   <a class="cta reveal d5" id="cta" href="https://www.linkedin.com/in/umberto-anniciello/">Go to LinkedIn</a>
 
   <p class="contact reveal d6">Or email <a id="mail" href="#"></a><noscript>umberto.anniciello@gmail.com</noscript></p>
-
-  <p class="status reveal d6" id="status" aria-live="polite"></p>
 </main>
 
 <script>
   (function () {
-    var DEST = "https://www.linkedin.com/in/umberto-anniciello/";
-    var status = document.getElementById("status");
-    var left = 10, timer;
-
     // the page is served from both .com and .it - name the one you actually reached
     var host = location.hostname.replace(/^www\./, "");
     if (host) document.getElementById("domain").textContent = host;
 
-    // assembled at runtime so the address is not in the served HTML
+    // assembled at runtime so the address is not in the served HTML for scrapers
     var mail = document.getElementById("mail");
     var addr = ["umberto.anniciello", "gmail.com"].join("@");
     mail.href = "mailto:" + addr;
     mail.textContent = addr;
-    // reaching for the email means you did not want LinkedIn
-    mail.addEventListener("click", cancel);
-
-    function paint() {
-      status.innerHTML =
-        'Taking you there in <b>' + left + '</b>' +
-        '<button class="stay" type="button" id="stay">stay here</button>';
-      document.getElementById("stay").addEventListener("click", cancel);
-    }
-
-    function cancel() {
-      clearInterval(timer);
-      status.textContent =
-        "Suit yourself. That was the entire website — you have now seen all of it.";
-    }
-
-    function tick() {
-      left -= 1;
-      if (left <= 0) {
-        clearInterval(timer);
-        status.innerHTML = "Taking you there in <b>0</b>";
-        window.location.replace(DEST);
-        return;
-      }
-      paint();
-    }
-
-    paint();
-    timer = setInterval(tick, 1000);
   })();
 </script>
 
