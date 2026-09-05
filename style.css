@@ -251,6 +251,22 @@ blockquote .ln:first-child{max-width:24ch}
   .colophon .contact{grid-column:8 / span 5;margin-top:-0.55rem;justify-content:flex-end}
 }
 
+/* --- phones and single-column screens ----------------------------------- */
+/* The portrait must leave room for the first words on a phone screen; the
+   plant sits centred under the last passage instead of stranded at the left. */
+@media (max-width:40em){
+  .plate{max-width:16rem}
+}
+@media (max-width:63.99em){
+  .sprig.sprig-inline{width:4.5rem;margin-inline:auto;margin-block-start:clamp(2.5rem, 2rem + 2vi, 3.5rem)}
+}
+/* A finger needs more than a 15px line to hit: widen the nav links' hit area
+   on touch screens without moving anything. */
+@media (pointer:coarse){
+  .nav a{position:relative}
+  .nav a::after{content:"";position:absolute;inset:-.75rem -.5rem}
+}
+
 /* --- the olive sprig: the quiet accent from nature ---------------------- */
 .sprig{display:block;width:clamp(3.5rem, 2.833rem + 3.333vi, 6rem);height:auto;color:var(--accent)}
 .sprig .leaf{opacity:.9}
