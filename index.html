@@ -3,258 +3,156 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Umberto Anniciello</title>
-<meta name="description" content="Umberto Anniciello — ESSEC Global BBA, Paris. Italian. A website will live here one day; the estimate has been revised a number of times.">
+<meta name="theme-color" content="#F3EEE4">
+<title>Umberto Anniciello — ESSEC Global BBA, Paris</title>
+<meta name="description" content="Umberto Anniciello, an ESSEC Global BBA student in Paris, exploring business, AI and how thoughtful ideas can improve people's lives.">
 <link rel="canonical" href="https://umbertoanniciello.com/">
 
-<meta property="og:type" content="website">
+<meta property="og:type" content="profile">
 <meta property="og:url" content="https://umbertoanniciello.com/">
 <meta property="og:title" content="Umberto Anniciello">
-<meta property="og:description" content="ESSEC Global BBA, Paris. A website will live here one day; the estimate has been revised a number of times.">
-<meta name="twitter:card" content="summary">
+<meta property="og:description" content="An ESSEC Global BBA student in Paris, exploring business, AI and how thoughtful ideas can improve people's lives.">
+<meta property="og:locale" content="en_GB">
+<meta property="og:image" content="https://umbertoanniciello.com/og.jpg">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Umberto Anniciello, ESSEC Global BBA, Paris">
+<meta name="twitter:card" content="summary_large_image">
 
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230E2A47'/%3E%3Cpath d='M9 8v11a7 7 0 0 0 14 0V8' fill='none' stroke='%23EDE7DC' stroke-width='2.5'/%3E%3Cpath d='M7 26h18' stroke='%23C9A227' stroke-width='2'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Crect%20width='32'%20height='32'%20fill='%23F3EEE4'/%3E%3Cpath%20d='M9%208v11a7%207%200%200%200%2014%200V8'%20fill='none'%20stroke='%23221E18'%20stroke-width='2.5'/%3E%3Cpath%20d='M7%2026h18'%20stroke='%232F5D45'%20stroke-width='2'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="/style.css">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500&family=Jost:wght@300;400&display=swap" rel="stylesheet">
-
-<style>
-  :root{
-    --ink:        #0E2A47;
-    --ink-deep:   #061627;
-    --paper:      #EDE7DC;
-    --paper-soft: rgba(237,231,220,.66);
-    --paper-faint:rgba(237,231,220,.5);
-    --brass:      #C9A227;
-    --brass-soft: rgba(201,162,39,.42);
-  }
-
-  *,*::before,*::after{ box-sizing:border-box; }
-  html,body{ height:100%; }
-
-  body{
-    margin:0;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    padding:clamp(1.5rem,6vw,4rem);
-    background:var(--ink-deep);
-    color:var(--paper);
-    font-family:"Jost", ui-sans-serif, system-ui, sans-serif;
-    font-weight:300;
-    -webkit-font-smoothing:antialiased;
-    text-rendering:optimizeLegibility;
-  }
-
-  /* ================= the drafting table ================= */
-  .bg{
-    position:fixed;
-    inset:0;
-    z-index:-1;
-    overflow:hidden;
-    background:radial-gradient(120% 90% at 50% 30%, #12314F 0%, var(--ink) 44%, var(--ink-deep) 100%);
-  }
-
-  /* survey grid, drifting one cell at a time so the loop is seamless */
-  .bg-grid{
-    position:absolute;
-    inset:-80px;
-    background-image:
-      linear-gradient(to right, rgba(237,231,220,.06) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(237,231,220,.06) 1px, transparent 1px);
-    background-size:46px 46px;
-    -webkit-mask-image:radial-gradient(78% 62% at 50% 44%, #000 0%, transparent 76%);
-            mask-image:radial-gradient(78% 62% at 50% 44%, #000 0%, transparent 76%);
-    animation:drift 26s linear infinite;
-    will-change:transform;
-  }
-  @keyframes drift{ to{ transform:translate3d(46px,46px,0); } }
-
-  /* two slow lights moving over the table */
-  .bg-glow{
-    position:absolute;
-    border-radius:50%;
-    filter:blur(70px);
-    will-change:transform;
-  }
-  .bg-glow-a{
-    width:58vmax; height:58vmax; left:-12vmax; top:-16vmax;
-    background:radial-gradient(circle, rgba(41,110,170,.5) 0%, rgba(41,110,170,0) 68%);
-    animation:floatA 46s ease-in-out infinite alternate;
-  }
-  .bg-glow-b{
-    width:50vmax; height:50vmax; right:-16vmax; bottom:-20vmax;
-    background:radial-gradient(circle, rgba(201,162,39,.14) 0%, rgba(201,162,39,0) 66%);
-    animation:floatB 61s ease-in-out infinite alternate;
-  }
-  @keyframes floatA{ to{ transform:translate3d(15vmax,9vmax,0) scale(1.16); } }
-  @keyframes floatB{ to{ transform:translate3d(-13vmax,-10vmax,0) scale(1.1); } }
-
-  /* paper tooth, so the gradients never band */
-  .bg-grain{
-    position:absolute;
-    inset:0;
-    opacity:.055;
-    mix-blend-mode:overlay;
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
-  }
-
-  /* ================= content ================= */
-  main{ width:100%; max-width:44rem; text-align:center; }
-
-  .domain{
-    margin:0;
-    font-size:.72rem;
-    letter-spacing:.24em;
-    text-transform:lowercase;
-    color:var(--paper-faint);
-  }
-
-  .headline{
-    font-family:"Bodoni Moda", Didot, "Times New Roman", serif;
-    font-weight:400;
-    font-size:clamp(3rem,1.167rem + 9.167vw,8.5rem);
-    line-height:.9;
-    letter-spacing:-.02em;
-    margin:clamp(1.6rem,5vw,2.6rem) 0 0;
-  }
-  .headline span{ display:block; }
-
-  .rule{
-    position:relative;
-    overflow:hidden;
-    width:clamp(60px,14vw,110px);
-    height:1px;
-    margin:clamp(1.8rem,5vw,2.6rem) auto;
-    background:var(--brass-soft);
-    transform-origin:center;
-    transform:scaleX(0);
-    animation:draw 1s cubic-bezier(.22,.68,.31,1) .55s forwards;
-  }
-  /* a light passing along the drafted line */
-  .rule::after{
-    content:"";
-    position:absolute;
-    inset:0;
-    background:linear-gradient(90deg, transparent, var(--brass), transparent);
-    transform:translateX(-100%);
-    animation:sweep 9s ease-in-out 2s infinite;
-  }
-  @keyframes draw{ to{ transform:scaleX(1); } }
-  @keyframes sweep{
-    0%{ transform:translateX(-100%); }
-    45%,100%{ transform:translateX(100%); }
-  }
-
-  .note{
-    margin:0 auto;
-    max-width:33ch;
-    font-size:clamp(.98rem,0.947rem + 0.167vw,1.08rem);
-    line-height:1.68;
-    text-wrap:balance;
-    color:var(--paper-soft);
-  }
-  .note + .note{ margin-top:.9em; }
-
-  .cta{
-    display:inline-block;
-    margin-top:clamp(2rem,5vw,2.8rem);
-    padding:.95em 2.1em;
-    border:1px solid var(--brass-soft);
-    border-radius:2px;
-    color:var(--paper);
-    font-size:.86rem;
-    font-weight:400;
-    letter-spacing:.13em;
-    text-decoration:none;
-    transition:background-color .35s ease, color .35s ease, border-color .35s ease;
-  }
-  .cta:hover,.cta:focus-visible{
-    background:var(--brass);
-    border-color:var(--brass);
-    color:var(--ink-deep);
-  }
-
-  /* secondary way in, for people who would rather not use LinkedIn */
-  .contact{
-    margin:clamp(1.5rem,3.6vw,1.9rem) 0 0;
-    font-size:.82rem;
-    letter-spacing:.07em;
-    color:var(--paper-faint);
-  }
-  .contact a{
-    color:var(--paper-soft);
-    text-decoration:underline;
-    text-underline-offset:.35em;
-    text-decoration-thickness:1px;
-    text-decoration-color:var(--brass-soft);
-    transition:color .3s ease, text-decoration-color .3s ease;
-  }
-  .contact a:hover,.contact a:focus-visible{
-    color:var(--paper);
-    text-decoration-color:var(--brass);
-  }
-
-  :focus-visible{ outline:1px solid var(--brass); outline-offset:5px; }
-
-  /* one orchestrated arrival — an enhancement, never a precondition for the text
-     being there. Everything renders visible; the reveal is layered on top only
-     where motion is welcome, so nothing is ever parked at opacity 0. */
-  @media (prefers-reduced-motion:no-preference){
-    .reveal{ opacity:0; transform:translateY(10px); animation:rise .95s cubic-bezier(.22,.68,.31,1) forwards; }
-  }
-  .d1{ animation-delay:.05s; }
-  .d2{ animation-delay:.18s; }
-  .d3{ animation-delay:.75s; }
-  .d4{ animation-delay:.92s; }
-  .d5{ animation-delay:1.1s; }
-  .d6{ animation-delay:1.26s; }
-  @keyframes rise{ to{ opacity:1; transform:none; } }
-
-  @media (prefers-reduced-motion:reduce){
-    .reveal,.rule{ animation:none; opacity:1; transform:none; }
-    .bg-grid,.bg-glow,.rule::after{ animation:none; }
-  }
-</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Umberto Anniciello",
+  "givenName": "Umberto",
+  "familyName": "Anniciello",
+  "url": "https://umbertoanniciello.com/",
+  "email": "mailto:umberto.anniciello@gmail.com",
+  "description": "An ESSEC Global BBA student exploring business, AI and how thoughtful ideas can improve people's lives.",
+  "nationality": { "@type": "Country", "name": "Italy" },
+  "knowsLanguage": ["Italian", "English", "French"],
+  "homeLocation": { "@type": "Place", "name": "Paris, France" },
+  "affiliation": {
+    "@type": "CollegeOrUniversity",
+    "name": "ESSEC Business School",
+    "url": "https://www.essec.edu/"
+  },
+  "sameAs": [
+    "https://www.linkedin.com/in/umberto-anniciello/",
+    "https://umbertoanniciello.it/"
+  ]
+}
+</script>
 </head>
 <body>
+<script>document.documentElement.classList.add('js');</script>
 
-<div class="bg" aria-hidden="true">
-  <div class="bg-grid"></div>
-  <div class="bg-glow bg-glow-a"></div>
-  <div class="bg-glow bg-glow-b"></div>
-  <div class="bg-grain"></div>
+<div class="sheet">
+
+  <header class="masthead">
+    <hr class="rule rule--heavy">
+    <h1><span class="word"><span>Umberto</span></span> <span class="word"><span>Anniciello</span></span></h1>
+
+    <nav class="nav" aria-label="Sections">
+      <a href="/" aria-current="page">Home</a>
+      <a href="/about/">About</a>
+      <a href="/now/">Now</a>
+    </nav>
+
+    <div class="grid hero">
+      <figure class="plate">
+        <div class="frame">
+          <picture>
+            <source type="image/webp"
+                    srcset="/images/umberto-portrait-400.webp 400w, /images/umberto-portrait-800.webp 800w"
+                    sizes="min(22rem, 92vw)">
+            <img src="/images/umberto-portrait-800.jpg"
+                 width="800" height="1000"
+                 alt="Umberto Anniciello in a blue graduation cap and gown"
+                 fetchpriority="high" decoding="async">
+          </picture>
+        </div>
+      </figure>
+
+      <div class="lead-wrap">
+        <p class="lead">
+          <span class="ln">I&rsquo;m Umberto Anniciello, an ESSEC Global BBA student</span>
+          <span class="ln">exploring business, AI and how thoughtful ideas</span>
+          <span class="ln">can improve people&rsquo;s lives.</span>
+        </p>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- the human side -->
+    <div class="passage passage--right grid">
+      <div class="mark"><hr class="rule" data-rv-rule></div>
+      <div class="body" data-rv>
+        <p>Family and friendship are at the heart of who I am. The care I feel for the people close to me also shapes what I hope to contribute through my work.</p>
+      </div>
+    </div>
+
+    <!-- the belief -->
+    <div class="belief" data-rv-belief>
+      <div class="belief-inner">
+        <span class="quotemark" aria-hidden="true">&ldquo;</span>
+        <div class="stem" data-rv-stem aria-hidden="true"></div>
+        <blockquote>
+          <span class="ln">I believe that when we have the knowledge, opportunity or influence to improve someone&rsquo;s life, we have a responsibility to act.</span>
+          <span class="ln">When a good path exists, we should have the courage to take it.</span>
+          <span class="ln">When it doesn&rsquo;t, we should have the imagination to create one and the persistence to make it work.</span>
+        </blockquote>
+      </div>
+    </div>
+
+    <!-- the ambition -->
+    <div class="passage passage--left ambition grid">
+      <div class="body" data-rv>
+        <p>A better future can feel far away. The choices that bring it closer begin today. I want to build something that helps people live better, alongside people who care about the difference they make.</p>
+      </div>
+
+      <svg class="sprig sprig-inline" viewBox="0 0 120 320" data-rv-sprig aria-hidden="true" focusable="false">
+        <defs>
+          <path id="lf" d="M0 0C-15-5-25-19-24-35c16 2 26 17 24 35Z"></path>
+        </defs>
+        <path class="stemline" d="M62 316C48 246 74 186 58 118 48 74 62 40 60 8"
+              fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path>
+        <g fill="currentColor">
+          <use class="leaf" href="#lf" transform="translate(58 268) rotate(6)"></use>
+          <use class="leaf" href="#lf" transform="translate(62 250) rotate(-6) scale(-1 1)"></use>
+          <use class="leaf" href="#lf" transform="translate(56 214) rotate(2)"></use>
+          <use class="leaf" href="#lf" transform="translate(64 194) rotate(-10) scale(-1 1)"></use>
+          <use class="leaf" href="#lf" transform="translate(56 156) rotate(-2)"></use>
+          <use class="leaf" href="#lf" transform="translate(62 136) rotate(-14) scale(-1 1)"></use>
+          <use class="leaf" href="#lf" transform="translate(56 98) rotate(-8)"></use>
+          <use class="leaf" href="#lf" transform="translate(60 76) rotate(-18) scale(-1 1)"></use>
+        </g>
+      </svg>
+    </div>
+
+  </main>
+
+  <footer class="colophon">
+    <hr class="rule" data-rv-rule>
+    <div class="cols">
+      <ul class="facts" data-rv>
+        <li>ESSEC Global BBA, Paris</li>
+        <li>Italian, English, French</li>
+        <li>Class of 2030</li>
+      </ul>
+      <ul class="contact" data-rv>
+        <li><a href="mailto:umberto.anniciello@gmail.com">umberto.anniciello@gmail.com<span class="u"></span></a></li>
+        <li><a href="https://www.linkedin.com/in/umberto-anniciello/" rel="me noopener">LinkedIn<span class="u"></span></a></li>
+      </ul>
+    </div>
+  </footer>
+
 </div>
 
-<main>
-  <p class="domain reveal d1" id="domain">umbertoanniciello.com</p>
-
-  <h1 class="headline reveal d2"><span>Under</span> <span>construction</span></h1>
-
-  <div class="rule" role="presentation"></div>
-
-  <p class="note reveal d3">A website will live here one day. The estimate has been revised a number of times.</p>
-  <p class="note reveal d4">Until then, everything worth knowing sits on LinkedIn, where someone else handles the design.</p>
-
-  <a class="cta reveal d5" id="cta" href="https://www.linkedin.com/in/umberto-anniciello/">Go to LinkedIn</a>
-
-  <p class="contact reveal d6">Or email <a id="mail" href="#"></a><noscript>umberto.anniciello@gmail.com</noscript></p>
-</main>
-
-<script>
-  (function () {
-    // the page is served from both .com and .it - name the one you actually reached
-    var host = location.hostname.replace(/^www\./, "");
-    if (host) document.getElementById("domain").textContent = host;
-
-    // assembled at runtime so the address is not in the served HTML for scrapers
-    var mail = document.getElementById("mail");
-    var addr = ["umberto.anniciello", "gmail.com"].join("@");
-    mail.href = "mailto:" + addr;
-    mail.textContent = addr;
-  })();
-</script>
-
+<script src="/reveal.js"></script>
 </body>
 </html>

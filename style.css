@@ -1,0 +1,383 @@
+
+/* ---------------------------------------------------------------------------
+   OPTIONAL SELF-HOSTED TEXT SERIF (no network requests as shipped).
+   Download Source Serif 4 (SIL OFL 1.1), subset to latin + latin-ext, place
+   the files beside this page as /fonts/…, then uncomment and put
+   'Source Serif 4' at the head of --serif.
+
+@font-face {
+  font-family: 'Source Serif 4';
+  src: url('/fonts/SourceSerif4-Roman.subset.woff2') format('woff2');
+  font-weight: 300 700; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Source Serif 4';
+  src: url('/fonts/SourceSerif4-Italic.subset.woff2') format('woff2');
+  font-weight: 300 700; font-style: italic; font-display: swap;
+}
+--------------------------------------------------------------------------- */
+
+:root{
+  --paper:#F3EEE4;
+  --paper-hi:#F7F3EA;
+  --paper-lo:#EFE9DC;
+  --panel:#E9E2D2;
+  --ink:#221E18;
+  --ink-soft:#55503F;
+  --accent:#2F5D45;
+  --accent-deep:#244735;
+  --rule:#C9C0AE;
+
+  --serif:'Iowan Old Style','Charter','Bitstream Charter','Palatino Linotype',Palatino,'Book Antiqua',Georgia,'Times New Roman',serif;
+  --display:'Hoefler Text','Baskerville','Baskerville Old Face','Iowan Old Style','Palatino Linotype',Palatino,Georgia,serif;
+  --meta:system-ui,-apple-system,'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif;
+
+  /* every clamp uses the two-term rem + vi form (WCAG 1.4.4 / F94 safe) */
+  --gutter:clamp(1.5rem, 0.333rem + 5.833vi, 5rem);
+  --step:clamp(4rem, 2.667rem + 6.667vi, 8rem);
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+
+html{
+  -webkit-text-size-adjust:100%;
+  min-height:100%;
+  background-color:var(--paper);
+  background-image:radial-gradient(130% 78% at 50% -6%, var(--paper-hi) 0%, var(--paper) 52%, var(--paper-lo) 100%);
+  background-repeat:no-repeat;
+}
+
+body{
+  margin:0;
+  background:transparent;
+  color:var(--ink);
+  font-family:var(--serif);
+  font-size:clamp(1.125rem, 1.083rem + 0.208vi, 1.25rem);
+  line-height:1.55;
+  font-kerning:normal;
+  font-variant-ligatures:common-ligatures;
+  text-rendering:optimizeLegibility;
+  overflow-x:hidden;
+}
+
+p{margin:0 0 1.1em}
+p:last-child{margin-bottom:0}
+
+a{color:var(--accent);text-decoration:none}
+:focus-visible{
+  outline:2px solid var(--accent);
+  outline-offset:4px;
+  border-radius:2px;
+}
+
+/* --- the sheet --------------------------------------------------------- */
+.sheet{
+  max-width:82rem;
+  margin-inline:auto;
+  padding-inline:var(--gutter);
+  padding-block:clamp(2rem, 1.167rem + 4.167vi, 5rem) clamp(3rem, 2rem + 5vi, 6rem);
+}
+
+/* the 12-column forme; single column until the page is wide enough to set
+   two properly, which is the only honest breakpoint for an editorial grid */
+.grid{display:grid;grid-template-columns:1fr;gap:0}
+@media (min-width:64em){
+  .grid{grid-template-columns:repeat(12,1fr);column-gap:clamp(1.5rem, 0.5rem + 2vi, 3rem)}
+}
+
+/* --- hairlines --------------------------------------------------------- */
+.rule{
+  height:1px;background:var(--rule);border:0;margin:0;
+  transform-origin:left center;
+}
+.rule--heavy{height:2px;background:var(--ink)}
+
+/* --- masthead ---------------------------------------------------------- */
+.masthead{padding-top:clamp(1rem, 0.5rem + 2.5vi, 2.5rem)}
+
+h1{
+  font-family:var(--display);
+  font-weight:400;
+  font-size:clamp(2.4rem, 1.033rem + 6.833vi, 6.5rem);
+  line-height:1.02;
+  letter-spacing:-0.018em;
+  margin:clamp(1.25rem, 0.833rem + 2.083vi, 2.75rem) 0 clamp(1.5rem, 1rem + 2.5vi, 3rem);
+  max-width:14ch;
+}
+/* The mask was compensated on the vertical axis only. Horizontally the negative
+   letter-spacing pulls the box in and round glyphs overhang their advance width:
+   measured, "Now" sits 1.7px outside its box at 40px and 5.1px at 120px, so the w
+   was sliced at every size. Same trick as the block axis - widen the mask, pull the
+   layout back by exactly the same amount, so word spacing is untouched. */
+h1 .word{display:inline-block;overflow:hidden;padding-block:0.02em 0.14em;margin-block:-0.02em -0.14em;padding-inline:0.03em 0.16em;margin-inline:-0.03em -0.16em;vertical-align:bottom}
+h1 .word > span{display:inline-block;will-change:transform}
+
+.lead{
+  font-size:clamp(1.375rem, 1.208rem + 0.833vi, 1.875rem);
+  line-height:1.42;
+  max-width:34ch;
+  margin-bottom:0;
+}
+.lead .ln{display:inline}
+
+@media (min-width:64em){
+  .hero .plate{grid-column:1 / span 4}
+  .hero .lead-wrap{grid-column:6 / span 7;align-self:end;padding-bottom:0.6rem}
+}
+
+/* --- portrait plate ---------------------------------------------------- */
+/* HEADSHOT SLOT.  This direction works with or without a portrait — the
+   grid simply gives the standfirst columns 1–7 if the plate is removed.
+   Replace the <svg> below with <img src="portrait.jpg" alt="" width="…"
+   height="…"> keeping the 4:5 ratio, and delete the .credit line. */
+.plate{margin:0 0 clamp(2rem, 1.5rem + 2.5vi, 3.5rem) 0;max-width:22rem}
+.plate .frame{
+  position:relative;overflow:hidden;
+  border:1px solid var(--rule);
+  background:var(--panel);
+  aspect-ratio:4/5;
+}
+.plate svg,.plate img{display:block;width:100%;height:100%;object-fit:cover}
+.plate .credit{
+  font-family:var(--meta);
+  font-size:0.75rem;
+  letter-spacing:0.04em;
+  color:var(--ink-soft);
+  margin:0.6rem 0 0;
+}
+.plate .credit b{font-weight:600;color:var(--accent-deep)}
+
+/* --- passages ---------------------------------------------------------- */
+.passage{margin-top:var(--step)}
+.passage .body{max-width:34em}
+.passage .body p{max-width:65ch}
+.mark{margin-bottom:clamp(1.25rem, 1rem + 1.25vi, 2rem)}
+
+@media (min-width:64em){
+  .passage--right .mark{grid-column:1 / span 3;margin-top:0.55rem}
+  .passage--right .body{grid-column:5 / span 7}
+  .passage--left  .body{grid-column:1 / span 7}
+  .passage--left  .sprig{grid-column:9 / span 3;justify-self:center}
+  .passage .mark{margin-bottom:0}
+}
+
+/* --- the belief: the pull-quote ---------------------------------------- */
+.belief{
+  margin-top:var(--step);
+  background:var(--panel);
+  border-block:1px solid var(--rule);
+  padding-block:clamp(3rem, 2.167rem + 4.167vi, 6rem);
+  /* full-bleed out of the sheet's gutters, safely, with no horizontal scroll */
+  margin-inline:calc(var(--gutter) * -1);
+  padding-inline:var(--gutter);
+}
+.belief-inner{max-width:82rem;margin-inline:auto}
+blockquote{
+  margin:0;
+  font-family:var(--display);
+  font-weight:400;
+  font-size:clamp(1.55rem, 1.15rem + 2vi, 2.75rem);
+  line-height:1.28;
+  letter-spacing:-0.012em;
+  position:relative;
+}
+blockquote .ln{display:block;max-width:26ch}
+blockquote .ln + .ln{margin-top:0.5em}
+blockquote .ln:first-child{max-width:24ch}
+/* the hanging opening quote, set in the margin the way a magazine sets it */
+.quotemark{
+  font-family:var(--display);
+  font-size:clamp(4rem, 2.5rem + 7.5vi, 9rem);
+  line-height:0.6;
+  color:var(--accent-deep);
+  opacity:.42;
+  display:block;
+  margin-bottom:0.06em;
+  user-select:none;
+}
+.stem{display:none}
+@media (min-width:64em){
+  .belief-inner{display:grid;grid-template-columns:repeat(12,1fr);column-gap:clamp(1.5rem, 0.5rem + 2vi, 3rem)}
+  .quotemark{grid-column:1 / span 1;text-align:right;margin:0;justify-self:end}
+  .stem{display:block;grid-column:2 / span 1;justify-self:center;
+        width:2px;background:var(--accent);align-self:stretch;
+        transform-origin:top center;margin:0.4rem 0 0.5rem}
+  blockquote{grid-column:3 / span 9}
+  blockquote .ln,blockquote .ln:first-child{max-width:30ch}
+}
+
+/* --- the ambition: drop cap -------------------------------------------- */
+.ambition .body > p:first-of-type::first-letter{
+  float:left;
+  font-family:var(--display);
+  font-size:3.5em;
+  line-height:0.78;
+  padding:0.06em 0.1em 0 0;
+  color:var(--accent-deep);
+}
+
+/* --- colophon ---------------------------------------------------------- */
+.colophon{margin-top:var(--step)}
+.colophon .rule{margin-bottom:clamp(1.25rem, 1rem + 1.25vi, 2rem)}
+.facts,.contact{
+  list-style:none;margin:0;padding:0;
+  font-family:var(--meta);
+  display:flex;flex-wrap:wrap;align-items:center;
+  column-gap:0.85rem;row-gap:0.1rem;
+}
+.facts{font-size:0.9375rem;color:var(--ink-soft);letter-spacing:0.005em}
+.facts li,.contact li{display:flex;align-items:center;gap:0.85rem}
+.facts li:not(:last-child)::after,
+.contact li:not(:last-child)::after{content:'·';color:var(--rule);font-size:1.1em}
+.facts .slot{color:var(--accent-deep);font-weight:600}
+.contact{margin-top:0.35rem;font-size:1rem}
+.contact a{
+  display:inline-flex;align-items:center;min-height:44px;
+  color:var(--accent);
+  border-bottom:1px solid transparent;
+  position:relative;
+}
+.contact a .u{
+  position:absolute;left:0;right:0;bottom:11px;height:1px;background:currentColor;
+  transform:scaleX(0);transform-origin:left center;
+  transition:transform .45s var(--ease);
+}
+.contact a:hover .u,.contact a:focus-visible .u{transform:scaleX(1)}
+
+@media (min-width:64em){
+  .colophon .cols{display:grid;grid-template-columns:repeat(12,1fr);column-gap:clamp(1.5rem, 0.5rem + 2vi, 3rem);align-items:start}
+  .colophon .facts{grid-column:1 / span 7}
+  .colophon .contact{grid-column:8 / span 5;margin-top:-0.55rem;justify-content:flex-end}
+}
+
+/* --- the olive sprig: the quiet accent from nature ---------------------- */
+.sprig{display:block;width:clamp(3.5rem, 2.833rem + 3.333vi, 6rem);height:auto;color:var(--accent)}
+.sprig .leaf{opacity:.9}
+.sprig-inline{margin-block:clamp(2rem, 1.667rem + 1.667vi, 3rem) 0}
+/* ==========================================================================
+   MOTION — "Settling", much slower
+   One gesture, performed slowly and in order, then stillness. Nothing draws
+   itself; nothing slides sideways. Everything rises 14px into place on an
+   evenly-paced curve and then stops moving for good.
+
+   Chosen from the motion comparison on 5 September 2026:
+   treatment = settling · pace = much slower (1.75x) · body text = moves.
+
+   Every duration below derives from --pace, so the whole page can be sped up
+   or slowed down by changing one number and nothing drifts out of step.
+   ========================================================================== */
+:root{
+  --pace:1.75;          /* scroll reveals — the "much slower" that was chosen */
+  --pace-in:1.15;       /* the one-time page-load sequence. Deliberately quicker:
+                           at 1.75 the first screen took 3.8s to finish assembling
+                           and no largest-contentful-paint was recorded at all.
+                           Slowness is right while reading and wrong on arrival.
+                           Set this to 1.75 to make the entrance match the rest. */
+  --ease:cubic-bezier(.22,.61,.36,1);   /* evenly paced; not front-loaded */
+  --rise:.875rem;                        /* the 14px settle */
+
+  --d-name:calc(.95s * var(--pace-in));
+  --d-lead:calc(.90s * var(--pace-in));
+  --d-plate:calc(1.05s * var(--pace-in));
+  --d-credit:calc(.80s * var(--pace-in));
+  --d-rv:calc(.85s * var(--pace));
+  --d-belief:calc(.90s * var(--pace));
+  --d-sprig:calc(1.20s * var(--pace));
+  --d-leaf:calc(.60s * var(--pace));
+}
+
+/* page-load sequence — CSS keyframes, so they complete with or without JS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(var(--rise))}to{opacity:1;transform:translateY(0)}}
+@keyframes drawX{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+
+/* the one line that still draws itself: the heavy rule above the name */
+.masthead .rule{animation:drawX calc(1.10s * var(--pace-in)) var(--ease) both}
+h1 .word > span{animation:fadeUp var(--d-name) var(--ease) both}
+h1 .word:nth-child(1) > span{animation-delay:calc(.16s * var(--pace-in))}
+h1 .word:nth-child(2) > span{animation-delay:calc(.29s * var(--pace-in))}
+.lead .ln{animation:fadeUp var(--d-lead) var(--ease) both}
+.lead .ln:nth-child(1){animation-delay:calc(.62s * var(--pace-in))}
+.lead .ln:nth-child(2){animation-delay:calc(.75s * var(--pace-in))}
+.lead .ln:nth-child(3){animation-delay:calc(.88s * var(--pace-in))}
+.plate .frame > *{animation:fadeUp var(--d-plate) var(--ease) calc(.82s * var(--pace-in)) both}
+.plate .credit{animation:fadeUp var(--d-credit) var(--ease) calc(1.35s * var(--pace-in)) both}
+
+/* scroll reveals — single shot, IntersectionObserver, .js-gated.
+   Start states live behind .js: with JavaScript off nothing is hidden. */
+.js [data-rv]{opacity:0;transform:translateY(var(--rise));
+  transition:opacity var(--d-rv) var(--ease),transform var(--d-rv) var(--ease)}
+.js [data-rv].is-in{opacity:1;transform:none}
+
+/* Settling: rules and the belief's stem do not draw. They settle like everything else. */
+.js [data-rv-rule],.js [data-rv-stem]{opacity:0;transition:opacity var(--d-rv) var(--ease)}
+.js [data-rv-rule].is-in,.js [data-rv-stem].is-in{opacity:1}
+
+/* the belief passage: three sentences, 140ms apart, all rising the same way */
+.js .belief .quotemark,
+.js .belief blockquote .ln{opacity:0;transform:translateY(var(--rise));
+  transition:opacity var(--d-belief) var(--ease),transform var(--d-belief) var(--ease)}
+.js .belief.is-in .quotemark,
+.js .belief.is-in blockquote .ln{opacity:1;transform:none}
+.js .belief.is-in .quotemark{transition-delay:calc(.10s * var(--pace));opacity:.42}
+.js .belief.is-in blockquote .ln:nth-child(1){transition-delay:calc(.14s * var(--pace))}
+.js .belief.is-in blockquote .ln:nth-child(2){transition-delay:calc(.28s * var(--pace))}
+.js .belief.is-in blockquote .ln:nth-child(3){transition-delay:calc(.42s * var(--pace))}
+
+/* the olive sprig — the one thing that still draws itself, leaf by leaf.
+   Kept deliberately: it is the piece of motion Umberto asked to protect. */
+.js .sprig .stemline{transform:scaleY(0);transform-origin:bottom center;
+  transition:transform var(--d-sprig) var(--ease)}
+.js .sprig .leaf{opacity:0;transition:opacity var(--d-leaf) var(--ease)}
+.js .sprig.is-in .stemline{transform:scaleY(1)}
+.js .sprig.is-in .leaf{opacity:.9}
+.js .sprig.is-in .leaf:nth-of-type(1){transition-delay:calc(.34s * var(--pace))}
+.js .sprig.is-in .leaf:nth-of-type(2){transition-delay:calc(.44s * var(--pace))}
+.js .sprig.is-in .leaf:nth-of-type(3){transition-delay:calc(.54s * var(--pace))}
+.js .sprig.is-in .leaf:nth-of-type(4){transition-delay:calc(.64s * var(--pace))}
+.js .sprig.is-in .leaf:nth-of-type(5){transition-delay:calc(.74s * var(--pace))}
+.js .sprig.is-in .leaf:nth-of-type(6){transition-delay:calc(.84s * var(--pace))}
+.js .sprig.is-in .leaf:nth-of-type(7){transition-delay:calc(.94s * var(--pace))}
+.js .sprig.is-in .leaf:nth-of-type(8){transition-delay:calc(1.04s * var(--pace))}
+.js .sprig.is-in .leaf:nth-of-type(9){transition-delay:calc(1.09s * var(--pace))}
+.js .sprig.is-in .leaf:nth-of-type(10){transition-delay:calc(1.14s * var(--pace))}
+.js .sprig.is-in .leaf:nth-of-type(11){transition-delay:calc(1.19s * var(--pace))}
+.js .sprig.is-in .leaf:nth-of-type(12){transition-delay:calc(1.24s * var(--pace))}
+.js .sprig.is-in .leaf:nth-of-type(13){transition-delay:calc(1.29s * var(--pace))}
+.js .sprig.is-in .leaf:nth-of-type(14){transition-delay:calc(1.34s * var(--pace))}
+.js .sprig.is-in .leaf:nth-of-type(15){transition-delay:calc(1.39s * var(--pace))}
+.js .sprig.is-in .leaf:nth-of-type(16){transition-delay:calc(1.44s * var(--pace))}
+.js .sprig.is-in .leaf:last-of-type{transition-delay:calc(1.20s * var(--pace))}   /* the crown waits for the stem */
+
+/* ---- site navigation (added for the three-page site) ------------------- */
+.nav{display:flex;gap:clamp(1rem,.6rem + 1.2vi,1.8rem);align-items:baseline;
+  font-family:var(--meta);font-size:.78rem;letter-spacing:.09em;text-transform:uppercase;
+  margin:0 0 clamp(1.4rem,1rem + 1.4vi,2.2rem)}
+.nav a{color:var(--ink-soft);text-decoration:none;padding-bottom:.15rem;
+  border-bottom:1px solid transparent;transition:border-color .35s var(--ease),color .35s var(--ease)}
+.nav a:hover{color:var(--ink);border-bottom-color:var(--accent)}
+.nav a[aria-current="page"]{color:var(--ink);border-bottom-color:var(--accent)}
+.nav a:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+
+/* ---- /now: the dated line that proves the site is tended -------------- */
+.updated{font-family:var(--meta);font-size:.78rem;letter-spacing:.06em;
+  color:var(--ink-soft);margin:clamp(2rem,1.6rem + 1.4vi,3rem) 0 0}
+
+/* a printed page does not move for people who asked it not to */
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{
+    animation-duration:.001ms !important;
+    animation-delay:0ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:.001ms !important;
+    transition-delay:0ms !important;
+  }
+  .js [data-rv],
+  .js [data-rv-rule],
+  .js [data-rv-stem],
+  .js .belief .quotemark,
+  .js .belief blockquote .ln,
+  .js .sprig .leaf{opacity:1;transform:none}
+  .js .belief .quotemark{opacity:.42}
+  .js .sprig .stemline{transform:none}
+}
