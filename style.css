@@ -265,6 +265,11 @@ blockquote .ln:first-child{max-width:24ch}
 }
 @media (max-width:63.99em){
   .sprig.sprig-inline{width:4.5rem;margin-inline:auto;margin-block-start:clamp(2.5rem, 2rem + 2vi, 3.5rem)}
+  /* /now: the date stamp closes the page under the plant (its wrapper dissolves; the
+     paragraphs carry their own reveal) */
+  .body--dated{display:contents}
+  .ambition .sprig{order:1}
+  .body--dated .updated{order:2;text-align:center;margin:1.25rem 0 0}
 }
 /* A finger needs more than a 15px line to hit: widen the nav links' hit area
    on touch screens without moving anything. */
